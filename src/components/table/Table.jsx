@@ -3,13 +3,19 @@ import React from 'react'
 import './Table.css';
 
 const Table = (data) => {
+  let i = 0;
   let keys = [];
-  for ( var obj in data.data){
-    console.log(obj);
+  for(const ke of data.data){
+    for(const k of Object.keys(ke)){
+      keys.push(k);
+    }
     break;
   }
-  alert(keys);
-
+  /*
+  data.data.map((a) => (
+    keys.push(Object.keys(a))
+    ));
+*/
   return (
     <div>
     <h1>A Fancy Table</h1>
@@ -17,18 +23,23 @@ const Table = (data) => {
     <table id="customers">
       <thead>
       <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
+      {
+        keys.map((key)=>
+        (
+          <th key={key}>{key}</th>
+        )
+        )
+      }
       </tr>
       </thead>
       <tbody>
       {
         data.data.map((line) => 
         <tr key={line.id}>
-            <td>{line.id}</td>
-            <td>{line.title}</td>
-            <td>{line.body}</td>
+        {
+          keys.map((ke)=> (
+            <td key={i++}>{line[ke]}</td>))}
+            
         </tr> 
         )
       }
